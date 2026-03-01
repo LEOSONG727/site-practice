@@ -1,6 +1,9 @@
-// 서버 컴포넌트 — 빌드/요청 시 Supabase에서 직접 데이터를 가져옵니다.
+// 서버 컴포넌트 — 접속할 때마다 DB에서 최신 데이터를 가져옵니다.
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
+
+// 정적 캐시를 비활성화 — 매 요청마다 Supabase에서 최신 글 목록을 조회합니다.
+export const dynamic = 'force-dynamic'
 
 type Post = {
   id: string

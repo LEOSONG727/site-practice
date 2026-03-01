@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
+import { revalidateHome } from '@/app/actions'
 import type { User } from '@supabase/supabase-js'
 
 export default function WritePage() {
@@ -42,6 +43,7 @@ export default function WritePage() {
 
       if (insertError) throw insertError
 
+      await revalidateHome() // 메인 페이지 캐시 무효화
       router.push('/')
       router.refresh()
     } catch (err: unknown) {
