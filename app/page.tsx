@@ -13,7 +13,7 @@ type Post = {
   author: {
     nickname: string
     avatar_url: string | null
-  }[] | null
+  } | null   // Supabase many-to-one 조인은 배열이 아닌 단일 객체를 반환
 }
 
 export default async function HomePage() {
@@ -42,7 +42,7 @@ export default async function HomePage() {
           <p className="text-center text-gray-400 py-20">아직 작성된 글이 없습니다.</p>
         ) : (
           <ul className="space-y-4">
-            {(posts as Post[]).map((post) => (
+            {(posts as unknown as Post[]).map((post) => (
               <li key={post.id}>
               <Link
                 href={`/post/${post.id}`}
@@ -50,19 +50,19 @@ export default async function HomePage() {
               >
                 {/* 작성자 정보 */}
                 <div className="flex items-center gap-2 mb-3">
-                  {post.author?.[0]?.avatar_url ? (
+                  {post.author?.avatar_url ? (
                     <img
-                      src={post.author[0].avatar_url!}
-                      alt={post.author[0].nickname}
+                      src={post.author.avatar_url}
+                      alt={post.author.nickname}
                       className="w-8 h-8 rounded-full object-cover"
                     />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm">
-                      {post.author?.[0]?.nickname?.[0]?.toUpperCase() ?? '?'}
+                      {post.author?.nickname?.[0]?.toUpperCase() ?? '?'}
                     </div>
                   )}
                   <span className="text-sm font-medium text-gray-700">
-                    {post.author?.[0]?.nickname ?? '익명'}
+                    {post.author?.nickname ?? '익명'}
                   </span>
                   <span className="text-xs text-gray-400 ml-auto">
                     {new Date(post.created_at).toLocaleDateString('ko-KR')}

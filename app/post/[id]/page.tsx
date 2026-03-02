@@ -17,7 +17,7 @@ export type CommentRow = {
   content: string
   created_at: string
   author_id: string
-  author: { nickname: string; avatar_url: string | null }[] | null
+  author: { nickname: string; avatar_url: string | null } | null  // 단일 객체
 }
 
 export default async function PostPage({
@@ -42,7 +42,7 @@ export default async function PostPage({
 
   if (!post) notFound()
 
-  const postAuthor = (post.author as PostAuthor[] | null)?.[0]
+  const postAuthor = post.author as unknown as PostAuthor | null
 
   // 댓글 조회
   const { data: comments } = await supabase
@@ -118,7 +118,7 @@ export default async function PostPage({
         {/* 댓글 */}
         <CommentSection
           postId={id}
-          initialComments={(comments ?? []) as CommentRow[]}
+          initialComments={(comments ?? []) as unknown as CommentRow[]}
           currentUserId={currentUser?.id ?? null}
         />
 

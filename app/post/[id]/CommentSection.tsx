@@ -37,7 +37,7 @@ export default function CommentSection({ postId, initialComments, currentUserId 
 
       if (insertError) throw insertError
 
-      setComments((prev) => [...prev, data as CommentRow])
+      setComments((prev) => [...prev, data as unknown as CommentRow])
       setContent('')
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : '댓글 작성에 실패했습니다.')
@@ -96,12 +96,12 @@ export default function CommentSection({ postId, initialComments, currentUserId 
           {comments.map((comment) => (
             <li key={comment.id} className="flex gap-3">
               <div className="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-xs flex-shrink-0 mt-0.5">
-                {comment.author?.[0]?.nickname?.[0]?.toUpperCase() ?? '?'}
+                {comment.author?.nickname?.[0]?.toUpperCase() ?? '?'}
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs font-medium text-gray-700">
-                    {comment.author?.[0]?.nickname ?? '익명'}
+                    {comment.author?.nickname ?? '익명'}
                   </span>
                   <span className="text-xs text-gray-400">
                     {new Date(comment.created_at).toLocaleDateString('ko-KR')}
