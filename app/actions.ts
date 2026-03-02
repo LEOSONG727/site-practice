@@ -1,12 +1,58 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { createClient } from '@/utils/supabase/server'
 
-/**
- * 메인 페이지(/)의 캐시를 무효화합니다.
- * 클라이언트 컴포넌트에서는 revalidatePath를 직접 쓸 수 없으므로
- * 이 Server Action을 import해서 호출합니다.
- */
 export async function revalidateHome() {
   revalidatePath('/')
+}
+
+export async function deletePost(postId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('로그인이 필요합니다')
+
+  const { error } = await supabase
+    .from('posts')
+    .delete()
+    .eq('id', postId)
+    .eq('author_id', user.id) // RLS + 이중 안전장치
+
+  if (error) throw new Error(error.message)
+
+  revalidatePath('/')
+  revalidatePath('/profile')
+}
+
+export async function updatePost(postId: string, title: string, content: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('로그인이 필요합니다')
+
+  const { error } = await supabase
+    .from('posts')
+    .update({ title, content })
+    .eq('id', postId)
+    .eq('author_id', user.id)
+
+  if (error) throw new Error(error.message)
+
+  revalidatePath('/')
+  revalidatePath(`/post/${postId}`)
+  revalidatePath('/profile')
+}
+
+export async function updateNickname(nickname: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('로그인이 필요합니다')
+
+  const { error } = await supabase
+    .from('users')
+    .update({ nickname })
+    .eq('id', user.id)
+
+  if (error) throw new Error(error.message)
+
+  revalidatePath('/profile')
 }

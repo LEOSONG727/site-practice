@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import LikeButtons from './LikeButtons'
 import CommentSection from './CommentSection'
+import PostActions from './PostActions'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,7 +36,7 @@ export default async function PostPage({
   // 글 조회
   const { data: post } = await supabase
     .from('posts')
-    .select('id, title, content, created_at, author:users(nickname, avatar_url)')
+    .select('id, title, content, created_at, author_id, author:users(nickname, avatar_url)')
     .eq('id', id)
     .single()
 
@@ -99,6 +100,11 @@ export default async function PostPage({
           {/* 본문 */}
           <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{post.content}</p>
         </article>
+
+        {/* 수정/삭제 버튼 — 본인 글일 때만 표시 */}
+        {currentUser?.id === post.author_id && (
+          <PostActions postId={id} />
+        )}
 
         {/* 좋아요/싫어요 */}
         <LikeButtons
