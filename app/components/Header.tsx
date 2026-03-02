@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="text-lg font-bold text-gray-900">
+        <Link href="/" className="text-lg font-bold text-[#191F28]">
           커뮤니티
         </Link>
 
@@ -43,19 +43,19 @@ export default function Header() {
             <>
               <Link
                 href="/profile"
-                className="text-sm text-gray-600 hover:text-indigo-600 transition-colors"
+                className="text-sm text-[#8B95A1] hover:text-[#3182F6] transition-colors"
               >
                 마이페이지
               </Link>
               <Link
                 href="/write"
-                className="bg-indigo-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="bg-[#3182F6] text-white text-sm font-semibold px-3 py-1.5 rounded-xl hover:bg-[#2872E0] transition-colors"
               >
                 글쓰기
               </Link>
               <button
                 onClick={handleSignOut}
-                className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-sm text-[#8B95A1] hover:text-[#191F28] transition-colors"
               >
                 로그아웃
               </button>
@@ -63,7 +63,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="bg-indigo-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-colors"
+              className="bg-[#3182F6] text-white text-sm font-semibold px-3 py-1.5 rounded-xl hover:bg-[#2872E0] transition-colors"
             >
               로그인
             </Link>

@@ -69,14 +69,14 @@ export default function LikeButtons({
   }
 
   return (
-    <div className="flex gap-3 mb-4">
+    <div className="flex gap-2 mb-3">
       <button
         onClick={() => handleVote('like')}
         disabled={loading}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
+        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-50 ${
           userType === 'like'
-            ? 'bg-indigo-600 text-white'
-            : 'bg-white border border-gray-200 text-gray-600 hover:bg-indigo-50'
+            ? 'bg-[#3182F6] text-white'
+            : 'bg-blue-50 text-[#3182F6] hover:bg-blue-100'
         }`}
       >
         👍 {likes}
@@ -84,10 +84,10 @@ export default function LikeButtons({
       <button
         onClick={() => handleVote('dislike')}
         disabled={loading}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
+        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-50 ${
           userType === 'dislike'
-            ? 'bg-red-500 text-white'
-            : 'bg-white border border-gray-200 text-gray-600 hover:bg-red-50'
+            ? 'bg-[#8B95A1] text-white'
+            : 'bg-gray-100 text-[#8B95A1] hover:bg-gray-200'
         }`}
       >
         👎 {dislikes}

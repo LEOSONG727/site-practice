@@ -49,13 +49,13 @@ export default function ProfileClient({ nickname, posts, comments }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10">
-      <div className="max-w-2xl mx-auto px-4 space-y-6">
+    <main className="min-h-screen py-10">
+      <div className="max-w-2xl mx-auto px-4 space-y-4">
 
         {/* 닉네임 수정 카드 */}
-        <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h1 className="text-xl font-bold text-gray-900 mb-1">내 프로필</h1>
-          <p className="text-sm text-gray-400 mb-4">현재 닉네임: <span className="font-medium text-gray-700">{currentNickname}</span></p>
+        <section className="bg-white rounded-2xl shadow-sm p-6">
+          <h1 className="text-xl font-bold text-[#191F28] mb-1">내 프로필</h1>
+          <p className="text-sm text-[#8B95A1] mb-4">현재 닉네임: <span className="font-semibold text-[#191F28]">{currentNickname}</span></p>
           <form onSubmit={handleNicknameSubmit} className="flex gap-2">
             <input
               type="text"
@@ -63,12 +63,12 @@ export default function ProfileClient({ nickname, posts, comments }: Props) {
               onChange={(e) => setNicknameInput(e.target.value)}
               placeholder="새 닉네임 입력"
               required
-              className="flex-1 rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="flex-1 rounded-xl border border-gray-200 px-4 py-2 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition"
             />
             <button
               type="submit"
               disabled={nicknameLoading || nicknameInput.trim() === currentNickname}
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 text-sm font-semibold text-white bg-[#3182F6] rounded-xl hover:bg-[#2872E0] disabled:opacity-50 transition-colors"
             >
               {nicknameLoading ? '저장 중...' : '변경'}
             </button>
@@ -81,17 +81,17 @@ export default function ProfileClient({ nickname, posts, comments }: Props) {
         </section>
 
         {/* 활동 내역 */}
-        <section className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <section className="bg-white rounded-2xl shadow-sm overflow-hidden">
           {/* 탭 */}
-          <div className="flex border-b border-gray-100">
+          <div className="flex border-b border-[#F2F4F6]">
             {(['posts', 'comments'] as Tab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`flex-1 py-3 text-sm font-medium transition-colors ${
+                className={`flex-1 py-3 text-sm font-semibold transition-colors ${
                   tab === t
-                    ? 'text-indigo-600 border-b-2 border-indigo-600'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'text-[#3182F6] border-b-2 border-[#3182F6]'
+                    : 'text-[#8B95A1] hover:text-[#191F28]'
                 }`}
               >
                 {t === 'posts'
@@ -103,33 +103,33 @@ export default function ProfileClient({ nickname, posts, comments }: Props) {
 
           {/* 내가 쓴 글 탭 */}
           {tab === 'posts' && (
-            <ul className="divide-y divide-gray-50">
+            <ul className="divide-y divide-[#F2F4F6]">
               {postList.length === 0 ? (
-                <li className="py-12 text-center text-sm text-gray-400">작성한 글이 없습니다.</li>
+                <li className="py-12 text-center text-sm text-[#8B95A1]">작성한 글이 없습니다.</li>
               ) : (
                 postList.map((post) => (
                   <li key={post.id} className="flex items-center gap-3 px-6 py-4">
                     <div className="flex-1 min-w-0">
                       <Link
                         href={`/post/${post.id}`}
-                        className="text-sm font-medium text-gray-900 hover:text-indigo-600 truncate block"
+                        className="text-sm font-medium text-[#191F28] hover:text-[#3182F6] truncate block transition-colors"
                       >
                         {post.title}
                       </Link>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-[#8B95A1]">
                         {new Date(post.created_at).toLocaleDateString('ko-KR')}
                       </span>
                     </div>
                     <div className="flex gap-3 flex-shrink-0">
                       <Link
                         href={`/edit/${post.id}`}
-                        className="text-xs text-gray-500 hover:text-indigo-600 transition-colors"
+                        className="text-xs text-[#8B95A1] hover:text-[#3182F6] transition-colors"
                       >
                         수정
                       </Link>
                       <button
                         onClick={() => handleDeletePost(post.id)}
-                        className="text-xs text-gray-400 hover:text-red-500 transition-colors"
+                        className="text-xs text-[#8B95A1] hover:text-red-500 transition-colors"
                       >
                         삭제
                       </button>
@@ -142,20 +142,20 @@ export default function ProfileClient({ nickname, posts, comments }: Props) {
 
           {/* 내가 쓴 댓글 탭 */}
           {tab === 'comments' && (
-            <ul className="divide-y divide-gray-50">
+            <ul className="divide-y divide-[#F2F4F6]">
               {comments.length === 0 ? (
-                <li className="py-12 text-center text-sm text-gray-400">작성한 댓글이 없습니다.</li>
+                <li className="py-12 text-center text-sm text-[#8B95A1]">작성한 댓글이 없습니다.</li>
               ) : (
                 comments.map((comment) => (
                   <li key={comment.id} className="px-6 py-4">
                     <Link
                       href={`/post/${comment.post?.[0]?.id}`}
-                      className="text-xs text-indigo-500 hover:underline block mb-1 truncate"
+                      className="text-xs text-[#3182F6] hover:underline block mb-1 truncate"
                     >
                       ↩ {comment.post?.[0]?.title ?? '(삭제된 글)'}
                     </Link>
-                    <p className="text-sm text-gray-700 line-clamp-2 mb-1">{comment.content}</p>
-                    <span className="text-xs text-gray-400">
+                    <p className="text-sm text-[#333D4B] line-clamp-2 mb-1">{comment.content}</p>
+                    <span className="text-xs text-[#8B95A1]">
                       {new Date(comment.created_at).toLocaleDateString('ko-KR')}
                     </span>
                   </li>

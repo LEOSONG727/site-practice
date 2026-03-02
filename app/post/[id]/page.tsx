@@ -36,11 +36,14 @@ export default async function PostPage({
   // 글 조회
   const { data: post } = await supabase
     .from('posts')
-    .select('id, title, content, created_at, author_id, author:users(nickname, avatar_url)')
+    .select('id, title, content, created_at, views, author_id, author:users(nickname, avatar_url)')
     .eq('id', id)
     .single()
 
   if (!post) notFound()
+
+  // 조회수 증가 (SECURITY DEFINER RPC로 RLS 우회)
+  await supabase.rpc('increment_post_views', { post_id: id })
 
   const postAuthor = post.author as unknown as PostAuthor | null
 
@@ -67,38 +70,46 @@ export default async function PostPage({
     : null
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10">
+    <main className="min-h-screen py-10">
       <div className="max-w-2xl mx-auto px-4">
 
         {/* 뒤로가기 */}
-        <Link href="/" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-[#8B95A1] hover:text-[#3182F6] transition-colors mb-6"
+        >
           ← 목록으로
         </Link>
 
         {/* 글 본문 */}
-        <article className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          {/* 작성자 + 날짜 */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm">
+        <article className="bg-white rounded-2xl shadow-sm p-6 mb-3">
+          {/* 작성자 + 날짜 + 조회수 */}
+          <div className="flex items-center gap-2.5 mb-5">
+            <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#3182F6] font-semibold text-sm flex-shrink-0">
               {postAuthor?.nickname?.[0]?.toUpperCase() ?? '?'}
             </div>
-            <span className="text-sm font-medium text-gray-700">
-              {postAuthor?.nickname ?? '익명'}
-            </span>
-            <span className="text-xs text-gray-400 ml-auto">
-              {new Date(post.created_at).toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
+            <div>
+              <p className="text-sm font-semibold text-[#191F28]">
+                {postAuthor?.nickname ?? '익명'}
+              </p>
+              <p className="text-xs text-[#8B95A1]">
+                {new Date(post.created_at).toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+                {' · '}👁️ {(post.views ?? 0) + 1}
+              </p>
+            </div>
           </div>
 
           {/* 제목 */}
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">{post.title}</h1>
+          <h1 className="text-3xl font-extrabold text-[#191F28] mb-5 leading-tight">
+            {post.title}
+          </h1>
 
           {/* 본문 */}
-          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{post.content}</p>
+          <p className="text-[#333D4B] leading-7 whitespace-pre-wrap">{post.content}</p>
         </article>
 
         {/* 수정/삭제 버튼 — 본인 글일 때만 표시 */}

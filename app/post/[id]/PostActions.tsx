@@ -23,7 +23,7 @@ export default function PostActions({ postId }: Props) {
     <div className="flex justify-end gap-3 mb-2">
       <Link
         href={`/edit/${postId}`}
-        className="text-sm text-gray-500 hover:text-indigo-600 transition-colors"
+        className="text-sm text-gray-500 hover:text-[#3182F6] transition-colors"
       >
         수정
       </Link>

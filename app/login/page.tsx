@@ -61,26 +61,26 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <main className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         {/* 타이틀 */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">커뮤니티</h1>
-          <p className="text-sm text-gray-500 mt-2">
+          <h1 className="text-3xl font-bold text-[#191F28]">커뮤니티</h1>
+          <p className="text-sm text-[#8B95A1] mt-2">
             {mode === 'login' ? '계정에 로그인하세요' : '새 계정을 만드세요'}
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-sm p-6">
           {/* 모드 탭 */}
-          <div className="flex rounded-lg bg-gray-100 p-1 mb-6">
+          <div className="flex rounded-xl bg-[#F2F4F6] p-1 mb-6">
             {(['login', 'signup'] as Mode[]).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => switchMode(m)}
-                className={`flex-1 text-sm font-medium py-1.5 rounded-md transition-colors ${
-                  mode === m ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                className={`flex-1 text-sm font-semibold py-2 rounded-lg transition-colors ${
+                  mode === m ? 'bg-white text-[#191F28] shadow-sm' : 'text-[#8B95A1] hover:text-[#191F28]'
                 }`}
               >
                 {m === 'login' ? '로그인' : '회원가입'}
@@ -92,7 +92,7 @@ export default function LoginPage() {
             {/* 닉네임 — 회원가입 시만 표시 */}
             {mode === 'signup' && (
               <div>
-                <label htmlFor="nickname" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="nickname" className="block text-sm font-medium text-[#191F28] mb-1.5">
                   닉네임
                 </label>
                 <input
@@ -101,14 +101,14 @@ export default function LoginPage() {
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                   placeholder="사용할 닉네임 (빈칸 시 이메일 앞부분 사용)"
-                  className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition"
                 />
               </div>
             )}
 
             {/* 이메일 */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-[#191F28] mb-1.5">
                 이메일
               </label>
               <input
@@ -118,13 +118,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@example.com"
                 required
-                className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition"
               />
             </div>
 
             {/* 비밀번호 */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-[#191F28] mb-1.5">
                 비밀번호
               </label>
               <input
@@ -135,23 +135,23 @@ export default function LoginPage() {
                 placeholder="6자 이상"
                 required
                 minLength={6}
-                className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition"
               />
             </div>
 
             {/* 에러 / 성공 메시지 */}
             {error && (
-              <p className="text-sm text-red-500 bg-red-50 rounded-lg px-4 py-2">{error}</p>
+              <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-2.5">{error}</p>
             )}
             {message && (
-              <p className="text-sm text-green-600 bg-green-50 rounded-lg px-4 py-2">{message}</p>
+              <p className="text-sm text-green-600 bg-green-50 rounded-xl px-4 py-2.5">{message}</p>
             )}
 
             {/* 제출 버튼 */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-3 text-sm font-semibold text-white bg-[#3182F6] rounded-xl hover:bg-[#2872E0] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? '처리 중...' : mode === 'login' ? '로그인' : '회원가입'}
             </button>

@@ -57,7 +57,7 @@ export default function WritePage() {
   if (!user) return null
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10">
+    <main className="min-h-screen py-10">
       <div className="max-w-2xl mx-auto px-4">
 
         {/* 헤더 */}
@@ -65,22 +65,22 @@ export default function WritePage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="text-gray-400 hover:text-gray-600 transition-colors text-xl leading-none"
+            className="text-[#8B95A1] hover:text-[#191F28] transition-colors text-xl leading-none"
             aria-label="뒤로가기"
           >
             ←
           </button>
-          <h1 className="text-2xl font-bold text-gray-900">새 글 작성</h1>
+          <h1 className="text-2xl font-bold text-[#191F28]">새 글 작성</h1>
         </div>
 
         {/* 작성 폼 */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-5"
+          className="bg-white rounded-2xl shadow-sm p-6 space-y-5"
         >
           {/* 제목 입력 */}
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-[#191F28] mb-1.5">
               제목
             </label>
             <input
@@ -90,13 +90,13 @@ export default function WritePage() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="제목을 입력하세요"
               required
-              className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition"
             />
           </div>
 
           {/* 내용 입력 */}
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="content" className="block text-sm font-medium text-[#191F28] mb-1.5">
               내용
             </label>
             <textarea
@@ -106,13 +106,13 @@ export default function WritePage() {
               placeholder="내용을 입력하세요"
               required
               rows={10}
-              className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
+              className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-[#191F28] placeholder-[#8B95A1] focus:outline-none focus:ring-2 focus:ring-[#3182F6] focus:border-transparent transition resize-none"
             />
           </div>
 
           {/* 에러 메시지 */}
           {error && (
-            <p className="text-sm text-red-500 bg-red-50 rounded-lg px-4 py-2">{error}</p>
+            <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-2.5">{error}</p>
           )}
 
           {/* 버튼 */}
@@ -120,14 +120,14 @@ export default function WritePage() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              className="px-4 py-2 text-sm font-semibold text-[#8B95A1] bg-[#F2F4F6] rounded-xl hover:bg-gray-200 transition-colors"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-2 text-sm font-semibold text-white bg-[#3182F6] rounded-xl hover:bg-[#2872E0] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? '저장 중...' : '저장'}
             </button>
