@@ -52,9 +52,10 @@ export default async function HomePage() {
         ) : (
           <ul className="space-y-4">
             {(posts as Post[]).map((post) => (
-              <li
-                key={post.id}
-                className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow"
+              <li key={post.id}>
+              <Link
+                href={`/post/${post.id}`}
+                className="block bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow"
               >
                 {/* 작성자 정보 */}
                 <div className="flex items-center gap-2 mb-3">
@@ -86,6 +87,7 @@ export default async function HomePage() {
                 <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
                   {post.content}
                 </p>
+              </Link>
               </li>
             ))}
           </ul>
